@@ -26,7 +26,3 @@ export const reqGetWeather = ()=>{
       })
   })  
 }
-
-export const reqAddCategory = (categoryName)=> myAxios.post("/manage/category/add",{categoryName})
-
-export const reqUpdateCategory = (categoryId,categoryName)=> myAxios.post("/manage/category/update",{categoryId,categoryName})

@@ -68,7 +68,7 @@ class Admin extends Component {
                 <Route path="/admin/charts/pie" component={Pie}/>
                 <Redirect to="/admin/home"/>
               </Switch>
-              {/* <button onClick={this.getProductCategories}>点击</button> */}
+              <button onClick={this.getProductCategories}>点击</button>
             </Content>
             <Footer className="footer">为了更好的体验，请选择谷歌浏览器</Footer>
           </Layout>

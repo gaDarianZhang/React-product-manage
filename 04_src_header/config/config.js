@@ -5,5 +5,3 @@ export const BASE_URL = "http://localhost:3000"
 export const CITY = "南阳"
 export const APPID = "14953226"
 export const APPSECRET = "d2LFgjyG"
-
-export const PAGE_SIZE = 10
