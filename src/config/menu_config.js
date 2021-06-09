@@ -11,7 +11,7 @@ import {
   PieChartOutlined,
 } from '@ant-design/icons';
 //项目的菜单配置
-export default[
+let menuConfig = [
   {
     title: '首页', // 菜单标题名称
     key: 'home', // 对应的to
@@ -79,3 +79,5 @@ export default[
     ]
   },
 ]
+
+export default menuConfig;

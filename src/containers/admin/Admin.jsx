@@ -2,17 +2,17 @@ import React, { Component} from 'react'
 import {Route, Switch, Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {Layout} from 'antd'
-
-import {reqGetProductCategories} from '../../request/requests'
 import { createDeleteUserInfoAction } from '../../redux/actions/loginActions';
 import Header from './header/header'
 import Home from '../../components/admin/home/home'
 import LeftNav from './leftNav/leftNav'
-import Bar from './bar/bar'
 import Category from './category/category'
+import Product from './product/product'
+import ProductDetail from './productDetail/productDetail'
+import ProductAdd0Update from './productAdd0Update/productAdd0Update'
+import Bar from './bar/bar'
 import Line from './line/line'
 import Pie from './pie/pie'
-import Product from './product/product'
 import Role from './role/role'
 import User from './user/user'
 import myAxios from '../../request/axiosInstance'
@@ -37,10 +37,7 @@ class Admin extends Component {
     // console.log(collapsed);
     this.setState({ collapsed });
   };
-  getProductCategories = async () =>{
-    const result = await reqGetProductCategories();
-    console.log(result);
-  }
+
   render() {
     const {userInfo} = this.props;
     const { collapsed } = this.state;//////
@@ -59,6 +56,9 @@ class Admin extends Component {
             <Content className="content">
               <Switch>
                 <Route path="/admin/home" component={Home}/>
+                <Route path="/admin/prod_about/product/detail/:id" component={ProductDetail}></Route>
+                <Route path="/admin/prod_about/product/add_update/:id" component={ProductAdd0Update}></Route>
+                <Route path="/admin/prod_about/product/add_update" component={ProductAdd0Update}></Route>
                 <Route path="/admin/prod_about/category" component={Category}/>
                 <Route path="/admin/prod_about/product" component={Product}/>
                 <Route path="/admin/user" component={User}/>

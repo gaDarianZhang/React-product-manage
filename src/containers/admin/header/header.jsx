@@ -29,6 +29,7 @@ class Header extends Component {
     menuTitle:""
   }
 
+
   componentDidMount(){
     // 监听全屏是否发生变化，包括esc退出全屏。但不包括f11全屏
     screenfull.on('change',()=>{
@@ -40,7 +41,7 @@ class Header extends Component {
       this.setState({date:dayjs().format('YYYY-MM-DD HH:mm:ss')})
     },500)
     this.getWeather();
-    this.setTitle()
+    // this.setTitle();
   }
 
   componentWillUnmount(){
@@ -98,7 +99,8 @@ class Header extends Component {
         </div>
         <div className="header-bottom">
           <div className="left">
-            {this.props.menuTitle||this.state.menuTitle}
+            {/* {this.state.menuTitle||this.props.menuTitle} */}
+            {this.props.menuTitle}
           </div>
           <div className="right">
             {this.state.date}

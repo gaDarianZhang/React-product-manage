@@ -1,14 +1,24 @@
 import React, { Component, Fragment } from 'react'
+import {connect} from 'react-redux'
 import {Card,Button,Table, message, Modal, Form, Input} from 'antd'
 import {PlusCircleOutlined, CloseSquareOutlined} from '@ant-design/icons'
 import {reqGetProductCategories,reqAddCategory, reqUpdateCategory} from '../../../request/requests'
+import {createSaveCategoryListAction} from '../../../redux/actions/categoryActions'
 import {PAGE_SIZE} from '../../../config/config'
 
 // 拿到的商品分类数据格式：
 // name: "智能手机"
 // __v: 0
 // _id: "5dccd15af495734150be910e"
-export default class Category extends Component {
+@connect(
+  state=>({
+
+  }),
+  {
+    saveCategoryList:createSaveCategoryListAction
+  }
+)
+class Category extends Component {
 
   state = {
     categoryInfo:[],
@@ -17,20 +27,21 @@ export default class Category extends Component {
     chosedCategoryInfo:{}//用于保存将要修改的这个分类信息
   }
 
+  componentDidMount(){
+    // 挂载时就开始请求数据
+    this.getCategoryInfo();
+  }
+
   getCategoryInfo = async()=>{
     let result = await reqGetProductCategories();
     let {status,data,msg} = result;
     if (status===0) {
       this.setState({categoryInfo:data.reverse()});
       // console.log(data);
+      this.props.saveCategoryList(data);
     }else{
       message.error(msg,1);
     }
-  }
-
-  componentDidMount(){
-    // 挂载时就开始请求数据
-    this.getCategoryInfo();
   }
 
   showModal = (event,oneCategoryInfo) => {
@@ -41,7 +52,8 @@ export default class Category extends Component {
       在这个回调中，以保证Modal真正显示，因为只有Modal显示后Modal内的子元素才被创建。默认Modal再关闭后内部元素不会被销毁，
       但是可以设置当Modal关闭后内部元素被销毁。
       */
-      let tmp = operationType==="update"?this.inp.setFieldsValue({category:oneCategoryInfo.name}):undefined;
+      if(operationType==="update") this.inp.setFieldsValue({category:oneCategoryInfo.name})
+
     })
 
   };
@@ -71,12 +83,12 @@ export default class Category extends Component {
 
   todoAdd = async (categoryName)=>{
     let result = await reqAddCategory(categoryName);
-    let {status,data,msg} = result;
+    let {status,msg} = result;
     if (status === 0) {
       message.success("添加数据成功",1);
       this.getCategoryInfo();
-      this.inp.resetFields();
       this.setState({isModalVisible:false})
+      this.inp.resetFields();
     }else if (status===1) {
       message.error(msg,1);
     }
@@ -86,8 +98,8 @@ export default class Category extends Component {
     if (status===0) {
       message.success("商品种类更新成功",1);
       this.getCategoryInfo();
-      this.inp.resetFields();
       this.setState({isModalVisible:false})
+      this.inp.resetFields();
     }else if (status===1) {
       message.error(msg,1)
     }
@@ -180,3 +192,5 @@ export default class Category extends Component {
     )
   }
 }
+
+export default Category

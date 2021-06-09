@@ -14,6 +14,11 @@ const instance = axios.create({
 instance.interceptors.request.use((config)=>{
   // console.log("这是：",config.data);
   NProgress.start()
+  /* 
+    为什么要取localStorage内的token而不取redux内的呢？？
+    因为如果我修改了localStorage内的token，但是这时redux内的token是不会变化的。
+    
+  */
   // const token = store.getState().userInfo.token;
   const token = localStorage.getItem("token");
   if(token) config.headers.Authorization = "atguigu_"+token;
